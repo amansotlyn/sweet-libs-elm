@@ -1,57 +1,69 @@
 module App exposing (..)
 
-import Html exposing (Html, text, div, img)
-import Html.Attributes exposing (src)
+import Html exposing (Html, div, text, input, beginnerProgram)
 
+import Html.Attributes exposing (class, style, placeholder)
 
----- MODEL ----
+import Html.Events exposing (onInput)
+
+-- MAIN
+
+main =
+  Html.beginnerProgram { model = model, view = view, update = update }
+
+-- MODEL
 
 
 type alias Model =
-    { message : String
-    , logo : String
-    }
+    {
+    colorOne: String
+    , colorTwo: String
+    , colorThree: String
+  }
 
 
-init : String -> ( Model, Cmd Msg )
-init path =
-    ( { message = "Your Elm App is working!", logo = path }, Cmd.none )
+model : Model
+model = {
+  colorOne = toString 250
+  , colorTwo = toString 250
+  , colorThree = toString 210
+ }
 
-
-
----- UPDATE ----
-
-
+-- MESSAGES
 type Msg
-    = NoOp
+    = ChangeOne String
+    | ChangeTwo String
+    | ChangeThree String
 
-
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> Model
 update msg model =
-    ( model, Cmd.none )
+  case msg of
+    ChangeOne newColor ->
+      {model | colorOne = newColor}
+    ChangeTwo newColor ->
+      {model | colorTwo = newColor}
+    ChangeThree newColor ->
+      {model | colorThree = newColor}
+      
 
-
-
----- VIEW ----
+-- VIEW
 
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ img [ src model.logo ] []
-        , div [] [ text model.message ]
+    div [style [("margin", "0 auto")
+                , ("display", "flex")
+                , ("flex-direction", "column")
+                , ("align-items", "center")]] [
+        input [placeholder "enter a number between 0 and 255", style [("width", "250px")], onInput ChangeOne] []
+        , input [placeholder "enter a number between 0 and 255", style [("width", "250px")], onInput ChangeTwo] []
+        , input [placeholder "enter a number between 0 and 255", style [("width", "250px")], onInput ChangeThree] []
+        , div [class "color-box"
+        , style [("background-color", "rgb("++model.colorOne++","++model.colorTwo++","++model.colorThree++")")
+        , ("height", "200px")
+        , ("width", "200px")
+        , ("display", "flex")
+        , ("flex-direction", "column")
+        , ("align-items", "center")
+        , ("margin-top", "10%")]][text "I Change Color!!"]
         ]
-
-
-
----- PROGRAM ----
-
-
-main : Program String Model Msg
-main =
-    Html.programWithFlags
-        { view = view
-        , init = init
-        , update = update
-        , subscriptions = \_ -> Sub.none
-        }
