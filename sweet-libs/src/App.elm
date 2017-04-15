@@ -1,35 +1,40 @@
 module App exposing (..)
 
-import Html exposing (Html, text, div, img)
-import Html.Attributes exposing (src)
-
+import Html exposing (Html, text, div, h1, button)
+--import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
+import Time exposing (Time, second)
 
 ---- MODEL ----
 
 
 type alias Model =
-    { message : String
-    , logo : String
+    { value: Int
+    , running : Bool
+    , time : Int
     }
 
 
-init : String -> ( Model, Cmd Msg )
-init path =
-    ( { message = "Your Elm App is working!", logo = path }, Cmd.none )
 
+
+init : (Model, Cmd Msg)
+init = Model 0 True
 
 
 ---- UPDATE ----
+type Msg = Increase Time | Stop Time | Reset Time
 
-
-type Msg
-    = NoOp
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> Model
 update msg model =
-    ( model, Cmd.none )
-
+    case msg of
+        Increase ->
+            if model.running
+            then {model | value = model.value+1}
+            else model
+        Stop ->
+            {model | running = not model.running}
+        Reset ->
+            { model | value = 0}
 
 
 ---- VIEW ----
@@ -37,21 +42,37 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ img [ src model.logo ] []
-        , div [] [ text model.message ]
-        ]
+      div []
+    [ h1 []
+        [model.value]
+    , button [ onClick Increase]
+        [ text "Start" ]
+    , button [onClick Stop]
+        [ text "Stop" ]
+    , button [ onClick Reset]
+        [ text "Reset" ]
+    ]
 
 
 
----- PROGRAM ----
+
+---- BEGINNER PROGRAM ----
 
 
-main : Program String Model Msg
+--main : Program String Model Action
 main =
-    Html.programWithFlags
         { view = view
         , init = init
         , update = update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = subscriptions
         }
+
+-- SUBSCRIPTIONS
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  Time.every second Increase
+
+
+
+
