@@ -6,13 +6,24 @@ import Html.Attributes exposing (class, style, placeholder)
 
 import Html.Events exposing (onInput)
 
+--resources:
+{-
+ http://package.elm-lang.org/packages/elm-lang/core/5.0.0/String#toInt
+ https://guide.elm-lang.org/
+ https://www.elm-tutorial.org/en/
+ https://github.com/izdi/elm-cheat-sheet#primitives
+ https://blog.codecentric.de/en/2015/11/elm-friday-part-01-what-is-elm/
+-}
+
 -- MAIN
 
+--elm's equivalent of document.ready
 main =
   Html.beginnerProgram { model = model, view = view, update = update }
 
 -- MODEL
 
+--define parameters of the model, something akin to react state
 
 type alias Model =
     {
@@ -21,11 +32,13 @@ type alias Model =
     , colorThree: String
   }
 
+--a function later on needs a result to be parsed, this parses it.
 type Result error value
     = Err error
     | Ok value
 
 
+--set initial model (what the page looks like on-load), basically initial state
 model : Model
 model = {
   colorOne = toString 250
@@ -34,14 +47,22 @@ model = {
  }
 
 -- MESSAGES
+
+--define "class methods," ways that state can be mutated,
+--and the datatypes that these methods take
 type Msg
     = ChangeOne String
     | ChangeTwo String
     | ChangeThree String
 
+
+--update is a function that takes Msg (from above) as a parameter
+--to apply to the current model (which is another parameter),
+--giving out a new model as a return value
 update : Msg -> Model -> Model
 update msg model =
   case msg of
+    --each input bar changes a different color of the box
     ChangeOne newColor ->
       {model | colorOne = newColor}
     ChangeTwo newColor ->
@@ -77,10 +98,12 @@ view model =
 changeTextColor : Model -> Html msg
 changeTextColor model =
   let
-    textColor =
+    (textColor, message) =
       if Result.withDefault 0 (String.toInt model.colorOne) < 120 && Result.withDefault 0 (String.toInt model.colorTwo) < 120 && Result.withDefault 0 (String.toInt model.colorThree) < 120 then
-        "rgb(255,239,213)"
+        ("rgb(255,239,213)", "I Change Color!!")
+      else if Result.withDefault 0 (String.toInt model.colorOne)==0 || Result.withDefault 0 (String.toInt model.colorTwo)==0 || Result.withDefault 0 (String.toInt model.colorThree)==0 then
+        ("rgb(0,0,0)", "Please Enter a valid number")
       else
-        "rgb(47,79,79)"
+        ("rgb(47,79,79)", "I Change Color!!")
   in
-    div [style [("color", textColor)]] [text "I Change Color!"]
+    div [style [("color", textColor)]] [text message]
