@@ -21,6 +21,10 @@ type alias Model =
     , colorThree: String
   }
 
+type Result error value
+    = Err error
+    | Ok value
+
 
 model : Model
 model = {
@@ -44,7 +48,7 @@ update msg model =
       {model | colorTwo = newColor}
     ChangeThree newColor ->
       {model | colorThree = newColor}
-      
+
 
 -- VIEW
 
@@ -65,5 +69,18 @@ view model =
         , ("display", "flex")
         , ("flex-direction", "column")
         , ("align-items", "center")
-        , ("margin-top", "10%")]][text "I Change Color!!"]
+        , ("margin-top", "10%")]] [changeTextColor model]
         ]
+
+--changeTextcolor
+
+changeTextColor : Model -> Html msg
+changeTextColor model =
+  let
+    textColor =
+      if Result.withDefault 0 (String.toInt model.colorOne) < 120 && Result.withDefault 0 (String.toInt model.colorTwo) < 120 && Result.withDefault 0 (String.toInt model.colorThree) < 120 then
+        "rgb(255,239,213)"
+      else
+        "rgb(47,79,79)"
+  in
+    div [style [("color", textColor)]] [text "I Change Color!"]
