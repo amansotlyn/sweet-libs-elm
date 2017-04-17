@@ -1,77 +1,84 @@
 module App exposing (..)
 
-import Html exposing (Html, text, div, h1, button)
+import Html exposing (Html, text, div, h1, button, program)
 --import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Time exposing (Time, second)
+--import TimeDisplay exposing (secsToStr)
 
----- MODEL ----
+type alias Time
+  =Float
+
+main =
+  Html.program
+   { init = init
+    , view = view
+    , model = model
+    , update = update
+    , subscriptions = subscriptions
+    }
+
+init : (Model, Cmd Msg)
+init = (
+  { value = 0
+  , running = False
+  }, Cmd.none)
 
 
 type alias Model =
-    { value: Int
-    , running : Bool
-    , time : Int
-    }
+  { value: Int
+  , running: Bool
+}
+
+model : Model
+model =
+  {
+    value = 0
+    , running = False
+  }
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  Time.every second Tick
 
 
-
-
-init : (Model, Cmd Msg)
-init = Model 0 True
-
-
----- UPDATE ----
-type Msg = Increase Time | Stop Time | Reset Time
+type Msg
+  = Start Bool
+  | Stop Bool
+  | Reset Bool
+  | Tick Time
 
 update : Msg -> Model -> Model
 update msg model =
-    case msg of
-        Increase ->
-            if model.running
-            then {model | value = model.value+1}
-            else model
-        Stop ->
-            {model | running = not model.running}
-        Reset ->
-            { model | value = 0}
-
-
----- VIEW ----
-
-
-view : Model -> Html Msg
+  case msg of
+    Start changeState ->
+      if not model.running then
+      {model | running = True}
+      else model
+    Stop changeState->
+      if model.running then
+      {model | running = False}
+      else model
+    Reset changeState->
+      if model.running then
+      {model | value = 0, running = False}
+      else model
+    Tick newTime ->
+      if model.running then
+      {model | value = model.value + 1}
+      else model
+view : Model -> Html (Bool -> Msg)
 view model =
-      div []
+   div []
     [ h1 []
-        [model.value]
-    , button [ onClick Increase]
+        [ text (toString model.value) ]
+    , button [ onClick Start]
         [ text "Start" ]
     , button [onClick Stop]
         [ text "Stop" ]
     , button [ onClick Reset]
         [ text "Reset" ]
     ]
-
-
-
-
----- BEGINNER PROGRAM ----
-
-
---main : Program String Model Action
-main =
-        { view = view
-        , init = init
-        , update = update
-        , subscriptions = subscriptions
-        }
-
--- SUBSCRIPTIONS
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-  Time.every second Increase
 
 
 
