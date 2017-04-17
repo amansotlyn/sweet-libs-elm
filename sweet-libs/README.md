@@ -1,177 +1,36 @@
-This project is bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).
-
-Below you will find some information on how to perform basic tasks.  
-You can find the most recent version of this guide [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md).
-
-## Table of Contents
-- [Sending feedback](#sending-feedback)
-- [Folder structure](#folder-structure)
-- [Installing Elm packages](#installing-elm-packages)
-- [Installing JavaScript packages](#installing-js-packages)
-- [Available scripts](#available-scripts)
-  - [elm-app build](#elm-app-build)
-  - [elm-app start](#elm-app-start)
-  - [elm-app test](#elm-app-test)
-  - [elm-app eject](#elm-app-eject)
-  - [elm-app <elm-platform-comand>](#elm-app-elm-platform-comand)
-    - [package](#package)
-    - [repl](#repl)
-    - [make](#make)
-    - [reactor](#reactor)
-- [Adding Images and Fonts](#adding-images-and-fonts)
-- [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
-- [Deploying to GitHub Pages](#deploying-to-github-pages)
-
-## Sending feedback
-You are very welcome with any [feedback](https://github.com/halfzebra/create-elm-app/issues)
-
-## Installing Elm packages
-
-```sh
-elm-app package install <package-name>
-```
-
-## Installing JavaScript packages
-
-To use JavaScript packages from npm, you'll need to add a `package.json`, install the dependencies, and you're ready to go.
-
-```sh
-npm init -y # Add package.json
-npm install --save-dev pouchdb-browser # Install library from npm
-```
-
-```js
-// Use in your JS code
-var PouchDB = require('pouchdb-browser');
-var db = new PouchDB('mydb');
-```
-
-## Folder structure
-```
-my-app/
-  .gitignore
-  README.md
-  elm-package.json
-  src/
-    App.elm
-    favicon.ico
-    index.html
-    index.js
-    main.css
-  tests/
-    elm-package.json
-    Main.elm
-    Tests.elm
-```
-For the project to build, these files must exist with exact filenames:
-
-- `src/index.html` is the page template;
-- `src/favicon.ico` is the icon you see in the browser tab;
-- `src/index.js` is the JavaScript entry point.
-
-You can delete or rename the other files.
-
-You may create subdirectories inside src.
-
-## Available scripts
-In the project directory you can run:
-### `elm-app build`
-Builds the app for production to the `dist` folder.  
-
-The build is minified, and the filenames include the hashes.  
-Your app is ready to be deployed!
-
-### `elm-app start`
-Runs the app in the development mode.  
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.  
-You will also see any lint errors in the console.
-
-### `elm-app test`
-Run tests with [node-test-runner](https://github.com/rtfeldman/node-test-runner/tree/master)
-
-You can make test runner watch project files by running:
-```sh
-elm-app test --watch
-```
-
-### `elm-app eject`
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Elm Platform, etc.) right into your project, so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point, you’re on your own.
-
-You don’t have to use 'eject' The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However, we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-### `elm-app <elm-platform-comand>`
-Create Elm App does not rely on the global installation of Elm Platform, but you still can use it's local Elm Platform to access default command line tools:
-
-#### `package`
-Alias for [elm-package](http://guide.elm-lang.org/get_started.html#elm-package)
-
-Use it for installing Elm packages from [package.elm-lang.org](http://package.elm-lang.org/)
-
-#### `repl`
-Alias for [elm-repl](http://guide.elm-lang.org/get_started.html#elm-repl)
-
-#### `make`
-Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
-
-#### `reactor`
-Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
-
-## Adding Images and Fonts
-
-With Webpack, using static assets like images and fonts works similarly to CSS.
-
-By requiring an image in JavaScript code, you tell Webpack to add a file to the build of your application. The variable will contain a unique path to the said file.
-
-Here is an example:
-
-```js
-require('./main.css');
-var logoPath = require('./logo.svg'); // Tell Webpack this JS file uses this image
-var Elm = require('./App.elm');
-
-var root = document.getElementById('root');
-
-Elm.App.embed(root, logoPath); // Pass image path as a flag.
-```
-Later on, you can use the image path in your view for displaying it in the DOM.
-
-```elm
-view : Model -> Html Msg
-view model =
-    div []
-        [ img [ src model.logo ] []
-        , div [] [ text model.message ]
-        ]
-```
+# Sweet Libs: Elm Sampler
+## by Amanda Munch, Kaitlyn Mohr, and Jason Andrada
 
 
-## IDE setup for Hot Module Replacement
-Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
+![alt text](../screenshots/imports.png)
 
-## Deploying to GitHub Pages
+# What is Elm?
+* Elm is a functional programming language that enforces best practices.
+* Predominantly a front-end framework that specializes in quick and easy rendering
+* This started as a Haskell off-shoot, much like Clojure
+* From this, we get Redux
 
-#### Step 1: install [gh-pages](https://github.com/tschaub/gh-pages)
-```sh
-npm install gh-pages -g
-```
+#How does Elm work?
+Elm runs on a 3-stage render process, something akin to React State:
+1. Model
+2. Update
+3. View
 
-#### Step 2: configure `SERVED_PATH` environment variable
-Create a `.env` file in the root of your project to specify the `SERVED_PATH` environment variable.
+## The Model
+The model is how your app will start on pageload. You can set your model to be whatever you want. For our sampler, we've chosen to set models as _records_, which are effectively the same as JavaScript objects. You can also set your model to be a string, or an integer, or whatever you like. This is what you'll be updating to render changes to your app.
+![alt text](../screenshots/model.png)
+### type alias
+type alias is how you assign a variable to a datatype. For example, if you know that you'll be using a lot of Integers in the same way, say as Seconds, you can say `type alias Seconds = Int`, and any time you reference `Seconds` you'll be talking about integers. In the above screenshot, you'll see we've used type alias to set up a prototype for our model, and we've defined exactly what each part of our model will expect.
 
-```
-SERVED_PATH=./
-```
+## Update
+![alt text](../screenshots/update.png)
+Update is what Elm calls setState, and is where all the magic happens.
+The first thing you'll notice is the big ol' `type Msg` declaration at the top of the screenshot. That's how our app knows what to change. Because any time we make a change to our app, any change we make is sent as a `Msg` to our model, which is then updated to reflect any changes.
+The update function is listening for any type of change, which we've bound to elements in our HTML (more on that later).
 
-The path must be `./` so the assets are served using relative paths.
+# The View
+![alt text](../screenshots/render.png)
+This is react's render function. And it's quite an adventure to parse through on your first pass. As of right now, there's no clearcut way to do CSS, you can do fun stuff like above. For a front-end framework, it has a surprisingly low amount of CSS support. Each div is defined using two pairs of brackets; one for all of the attributes, the other for the content and child elements. And unfortunately, without an external package, all of your CSS has to be done inline, using a _different_ external package. The attribute brackets is where you bind your _onClick_ events, or _onInput_ events, or any other events you may want. Just bear in mid, _onClick_ and _onInput_ don't come standard in `Elm Core`, they have to be installed using a package called `elm-html`
 
-#### Step 3: build the project and deploy it to GitHub Pages
-```sh
-elm-app build
-gh-pages -d dist
-```
+## Subscriptions
+This is definitely something that is a mind bender. Subscriptions are listeners for external events. Something kind of like onClick, only they're listening for specific actions. Event listeners have to be installed through other `elm` packages. 
