@@ -1,0 +1,262 @@
+var _user$project$Main$changeTextColor = function (model) {
+	var _p0 = ((_elm_lang$core$Native_Utils.cmp(
+		A2(
+			_elm_lang$core$Result$withDefault,
+			0,
+			_elm_lang$core$String$toInt(model.colorOne)),
+		120) < 0) && ((_elm_lang$core$Native_Utils.cmp(
+		A2(
+			_elm_lang$core$Result$withDefault,
+			0,
+			_elm_lang$core$String$toInt(model.colorTwo)),
+		120) < 0) && (_elm_lang$core$Native_Utils.cmp(
+		A2(
+			_elm_lang$core$Result$withDefault,
+			0,
+			_elm_lang$core$String$toInt(model.colorThree)),
+		120) < 0))) ? {ctor: '_Tuple2', _0: 'rgb(255,239,213)', _1: 'I Change Color!!'} : ((_elm_lang$core$Native_Utils.eq(
+		A2(
+			_elm_lang$core$Result$withDefault,
+			0,
+			_elm_lang$core$String$toInt(model.colorOne)),
+		0) || (_elm_lang$core$Native_Utils.eq(
+		A2(
+			_elm_lang$core$Result$withDefault,
+			0,
+			_elm_lang$core$String$toInt(model.colorTwo)),
+		0) || _elm_lang$core$Native_Utils.eq(
+		A2(
+			_elm_lang$core$Result$withDefault,
+			0,
+			_elm_lang$core$String$toInt(model.colorThree)),
+		0))) ? {ctor: '_Tuple2', _0: 'rgb(0,0,0)', _1: 'Please Enter a valid number'} : {ctor: '_Tuple2', _0: 'rgb(47,79,79)', _1: 'I Change Color!!'});
+	var textColor = _p0._0;
+	var message = _p0._1;
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'color', _1: textColor},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(message),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'ChangeOne':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{colorOne: _p1._0});
+			case 'ChangeTwo':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{colorTwo: _p1._0});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{colorThree: _p1._0});
+		}
+	});
+var _user$project$Main$model = {
+	colorOne: _elm_lang$core$Basics$toString(250),
+	colorTwo: _elm_lang$core$Basics$toString(250),
+	colorThree: _elm_lang$core$Basics$toString(210)
+};
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {colorOne: a, colorTwo: b, colorThree: c};
+	});
+var _user$project$Main$Ok = function (a) {
+	return {ctor: 'Ok', _0: a};
+};
+var _user$project$Main$Err = function (a) {
+	return {ctor: 'Err', _0: a};
+};
+var _user$project$Main$ChangeThree = function (a) {
+	return {ctor: 'ChangeThree', _0: a};
+};
+var _user$project$Main$ChangeTwo = function (a) {
+	return {ctor: 'ChangeTwo', _0: a};
+};
+var _user$project$Main$ChangeOne = function (a) {
+	return {ctor: 'ChangeOne', _0: a};
+};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'margin', _1: '0 auto'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'flex-direction', _1: 'column'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'align-items', _1: 'center'},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$placeholder('enter a number between 0 and 255'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'width', _1: '250px'},
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ChangeOne),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$input,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$placeholder('enter a number between 0 and 255'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'width', _1: '250px'},
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ChangeTwo),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$input,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$placeholder('enter a number between 0 and 255'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'width', _1: '250px'},
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ChangeThree),
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('color-box'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$style(
+										{
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 'background-color',
+												_1: A2(
+													_elm_lang$core$Basics_ops['++'],
+													'rgb(',
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														model.colorOne,
+														A2(
+															_elm_lang$core$Basics_ops['++'],
+															',',
+															A2(
+																_elm_lang$core$Basics_ops['++'],
+																model.colorTwo,
+																A2(
+																	_elm_lang$core$Basics_ops['++'],
+																	',',
+																	A2(_elm_lang$core$Basics_ops['++'], model.colorThree, ')'))))))
+											},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'height', _1: '200px'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'width', _1: '200px'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'flex-direction', _1: 'column'},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'align-items', _1: 'center'},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '10%'},
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													}
+												}
+											}
+										}),
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: _user$project$Main$changeTextColor(model),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
+var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: _user$project$Main$model, view: _user$project$Main$view, update: _user$project$Main$update})();
