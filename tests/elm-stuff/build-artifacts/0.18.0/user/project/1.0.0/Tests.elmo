@@ -1,0 +1,54 @@
+var _user$project$Tests$all = A2(
+	_elm_community$elm_test$Test$describe,
+	'A Test Suite',
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_community$elm_test$Test$test,
+			'App.model.message should be set properly',
+			function (_p0) {
+				var _p1 = _p0;
+				return A2(
+					_elm_community$elm_test$Expect$equal,
+					function (_) {
+						return _.message;
+					}(
+						_elm_lang$core$Tuple$first(
+							_user$project$App$init('../src/logo.svg'))),
+					'Your Elm App is working!');
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_community$elm_test$Test$test,
+				'Addition',
+				function (_p2) {
+					var _p3 = _p2;
+					return A2(_elm_community$elm_test$Expect$equal, 3 + 7, 10);
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_community$elm_test$Test$test,
+					'String.left',
+					function (_p4) {
+						var _p5 = _p4;
+						return A2(
+							_elm_community$elm_test$Expect$equal,
+							'a',
+							A2(_elm_lang$core$String$left, 1, 'abcdefg'));
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_community$elm_test$Test$test,
+						'This test should fail',
+						function (_p6) {
+							var _p7 = _p6;
+							return _elm_community$elm_test$Expect$fail('failed as expected!');
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
